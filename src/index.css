@@ -34,6 +34,27 @@ nav {
   font-size: 1.3vw;
 }
 
+.list {
+  margin: 0 1vw;
+  display: flex;
+  justify-content: center;
+}
+
+.plus {
+  width: 100%;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5vw;
+  background: #2f3f4e66;
+  color: white;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+
+.plus:hover {
+  background: #2f3f4e;
+}
+
 .lean-canvas {
   padding: 1vw;
   display: grid;
@@ -50,4 +71,5 @@ nav {
 
 .canvas-box {
   background: #70859d;
+  border-radius: 1vw;
 }

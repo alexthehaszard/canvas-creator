@@ -18,8 +18,8 @@ class LeanCanvas extends Component {
         <LeanCanvasSmallBox title="Sales Channels" grid="small-2" />
         <LeanCanvasSmallBox title="Unique Value Proposition" grid="small-3" />
         <LeanCanvasSmallBox title="Competitive Advantage" grid="small-4" />
-        <LeanCanvasWideBox title="Unique Value Proposition" grid="wide-1" />
-        <LeanCanvasWideBox title="Competitive Advantage" grid="wide-2" />
+        <LeanCanvasWideBox title="Costs" grid="wide-1" />
+        <LeanCanvasWideBox title="Revenue Streams" grid="wide-2" />
       </div>
     );
   }

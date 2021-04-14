@@ -9,11 +9,6 @@ body {
   background: #000000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 h2 {
   font-size: 1.5vw;
   margin: 1vw;
@@ -34,6 +29,22 @@ nav {
   font-size: 1.3vw;
 }
 
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+button {
+  background: #2f3f4e66;
+  cursor: pointer;
+  transition: background 0.5s ease;
+}
+
+button:hover {
+  background: #2f3f4e;
+}
+
 .list {
   margin: 0 1vw;
   display: flex;
@@ -47,12 +58,6 @@ nav {
   border-radius: 0.5vw;
   background: #2f3f4e66;
   color: white;
-  cursor: pointer;
-  transition: background 0.5s ease;
-}
-
-.plus:hover {
-  background: #2f3f4e;
 }
 
 .lean-canvas {
@@ -62,8 +67,8 @@ nav {
     "large-1 large-1 large-2 large-2 large-3 large-3 small-1 small-1 small-2 small-2 "
     "large-1 large-1 large-2 large-2 large-3 large-3 small-3 small-3 small-4 small-4 "
     "wide-1 wide-1 wide-1 wide-1 wide-1 wide-2 wide-2 wide-2 wide-2 wide-2 ";
-  grid-auto-rows: 1fr;
-  grid-auto-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 1vw;
   height: 84vh;
   width: 98vw;
@@ -72,4 +77,5 @@ nav {
 .canvas-box {
   background: #70859d;
   border-radius: 1vw;
+  max-height: 100%;
 }

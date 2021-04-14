@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 
-class LeanCanvasLargeBox extends Component {
+class LeanCanvasBox extends Component {
   constructor(props) {
     super();
     this.state = {
       listItems: [],
+      over: "none",
       button: (
         <button className="plus" onClick={() => this.addListItem()}>
           +
@@ -18,12 +19,13 @@ class LeanCanvasLargeBox extends Component {
   addListItem() {
     this.setState({
       button: (
-        <input
+        <textarea
           className="plus"
           autoFocus
           onBlur={() => this.unselectAddButton()}
           onChange={this.updateText}
-        ></input>
+          style={{ maxHeight: this.props.h + "vh" }}
+        ></textarea>
       ),
     });
   }
@@ -46,14 +48,35 @@ class LeanCanvasLargeBox extends Component {
     }
   }
 
+  mouseOver() {
+    console.log("over");
+    this.setState({ over: "flex" });
+  }
+
+  mouseOff() {
+    if (!this.state.inputText) {
+      console.log("off");
+      this.setState({ over: "none" });
+    }
+  }
+
   render() {
     return (
-      <div className={`canvas-box`} style={{ gridArea: this.props.grid }}>
-        <h2>{this.props.title}</h2>
-        <div className="list">{this.state.button}</div>
+      <div
+        className={`canvas-box`}
+        style={{ gridArea: this.props.grid }}
+        onMouseEnter={() => this.mouseOver()}
+        onMouseLeave={() => this.mouseOff()}
+      >
+        <h3>{this.props.title}</h3>
+        <div className="list">
+          <div style={{ display: this.state.over, width: "100%" }}>
+            {this.state.button}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default LeanCanvasLargeBox;
+export default LeanCanvasBox;

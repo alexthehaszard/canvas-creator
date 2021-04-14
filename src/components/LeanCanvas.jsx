@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import LeanCanvasSmallBox from "./LeanCanvasSmallBox";
-import LeanCanvasLargeBox from "./LeanCanvasLargeBox";
-import LeanCanvasWideBox from "./LeanCanvasWideBox";
+import LeanCanvasBox from "./LeanCanvasBox";
 
 class LeanCanvas extends Component {
   constructor(props) {
@@ -11,15 +9,15 @@ class LeanCanvas extends Component {
   render() {
     return (
       <div className="lean-canvas">
-        <LeanCanvasLargeBox title="Problem" grid="large-1" />
-        <LeanCanvasLargeBox title="Target Market" grid="large-2" />
-        <LeanCanvasLargeBox title="Solution" grid="large-3" />
-        <LeanCanvasSmallBox title="Existing Alternatives" grid="small-1" />
-        <LeanCanvasSmallBox title="Sales Channels" grid="small-2" />
-        <LeanCanvasSmallBox title="Unique Value Proposition" grid="small-3" />
-        <LeanCanvasSmallBox title="Competitive Advantage" grid="small-4" />
-        <LeanCanvasWideBox title="Costs" grid="wide-1" />
-        <LeanCanvasWideBox title="Revenue Streams" grid="wide-2" />
+        <LeanCanvasBox title="Problem" grid="large-1" h="45" />
+        <LeanCanvasBox title="Target Market" grid="large-2" h="45" />
+        <LeanCanvasBox title="Solution" grid="large-3" h="45" />
+        <LeanCanvasBox title="Existing Alternatives" grid="small-1" h="18" />
+        <LeanCanvasBox title="Sales Channels" grid="small-2" h="18" />
+        <LeanCanvasBox title="Unique Value Proposition" grid="small-3" h="18" />
+        <LeanCanvasBox title="Competitive Advantage" grid="small-4" h="18" />
+        <LeanCanvasBox title="Costs" grid="wide-1" h="18" />
+        <LeanCanvasBox title="Revenue Streams" grid="wide-2" h="18" />
       </div>
     );
   }

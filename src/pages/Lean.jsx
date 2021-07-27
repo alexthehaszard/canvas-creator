@@ -8,14 +8,14 @@ class Lean extends Component {
   }
   render() {
     return (
-      <>
+      <main>
         <nav>
-          <h1>Lean Canvas</h1>
+          <h1>Computer Value NZ</h1>
         </nav>
         <main>
           <LeanCanvas />
         </main>
-      </>
+      </main>
     );
   }
 }

@@ -1,76 +1,92 @@
 import React, { Component } from "react";
+import { debounce } from "debounce";
 
 class LeanCanvasBox extends Component {
   constructor(props) {
-    super();
+    super(props);
+    let i = "";
+    let b = (
+      <textarea
+        onChange={this.updateText}
+        onKeyUp={this.callbackToParent}
+        value={i}
+      ></textarea>
+    );
+    let o = "flex";
+
     this.state = {
-      listItems: [],
-      over: "none",
-      button: (
-        <button className="plus" onClick={() => this.addListItem()}>
-          +
-        </button>
-      ),
-      inputText: "",
+      over: o,
+      button: b,
+      inputText: i,
     };
     this.updateText = this.updateText.bind(this);
   }
 
-  addListItem() {
+  updateFromDB = (text) => {
+    this.setState({
+      inputText: text,
+    });
+    this.updateButton(text);
+  };
+
+  addListItem = (text) => {
     this.setState({
       button: (
         <textarea
-          className="plus"
-          autoFocus
-          onBlur={() => this.unselectAddButton()}
           onChange={this.updateText}
-          style={{ maxHeight: this.props.h + "vh" }}
+          onKeyUp={this.callbackToParent}
         ></textarea>
       ),
     });
-  }
+  };
 
-  updateText(event) {
+  updateText = (event) => {
     this.setState({
       inputText: event.target.value,
     });
-  }
+    this.updateButton(event.target.value);
+    // this.props.parentCallback(event.target.value, this.props.name);
+    // localStorage.setItem(this.props.name, event.target.value);
+  };
 
-  unselectAddButton() {
-    if (!this.state.inputText) {
-      this.setState({
-        button: (
-          <button className="plus" onClick={() => this.addListItem()}>
-            +
-          </button>
-        ),
-      });
-    }
-  }
+  sendToDB = () => {
+    console.log("sent");
+    this.props.parentCallback(this.state.inputText, this.props.name);
+  };
 
-  mouseOver() {
-    console.log("over");
-    this.setState({ over: "flex" });
-  }
+  callbackToParent = debounce(() => this.sendToDB(), 1000);
 
-  mouseOff() {
-    if (!this.state.inputText) {
-      console.log("off");
-      this.setState({ over: "none" });
-    }
-  }
+  updateButton = (text) => {
+    let b = (
+      <textarea
+        onChange={this.updateText}
+        onKeyUp={this.callbackToParent}
+        value={text}
+      ></textarea>
+    );
+    this.setState({
+      button: b,
+    });
+  };
 
   render() {
     return (
       <div
         className={`canvas-box`}
         style={{ gridArea: this.props.grid }}
-        onMouseEnter={() => this.mouseOver()}
-        onMouseLeave={() => this.mouseOff()}
+        // onMouseEnter={() => this.mouseOver()}
+        // onMouseLeave={() => this.mouseOff()}
       >
         <h3>{this.props.title}</h3>
         <div className="list">
-          <div style={{ display: this.state.over, width: "100%" }}>
+          <div
+            style={{
+              display: this.state.over,
+              width: "100%",
+              flexWrap: "true",
+              height: "100%",
+            }}
+          >
             {this.state.button}
           </div>
         </div>

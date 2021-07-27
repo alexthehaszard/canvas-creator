@@ -3,10 +3,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  color: white;
+  color: #204e5c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000000;
+  background: #ffffff;
 }
 
 h2 {
@@ -20,44 +20,42 @@ h3 {
 }
 
 nav {
-  background-color: #2f3f4e;
+  background-color: #bdd0e2;
   margin: 1vw 1vw 0 1vw;
   height: 10vh;
   display: flex;
   align-items: center;
   padding-left: 1vw;
   font-size: 1.3vw;
+  border-radius: 1vw;
 }
 
 textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease;
+  resize: none;
+  height: 90%;
+  width: 100%;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5vw;
+  color: #204e5c;
 }
 
-button {
-  background: #2f3f4e66;
-  cursor: pointer;
-  transition: background 0.5s ease;
-}
-
-button:hover {
-  background: #2f3f4e;
+textarea:hover {
+  background: #2f3f4e15;
 }
 
 .list {
   margin: 0 1vw;
   display: flex;
   justify-content: center;
-}
-
-.plus {
-  width: 100%;
-  padding: 0.5em 1em;
-  border: none;
-  border-radius: 0.5vw;
-  background: #2f3f4e66;
-  color: white;
+  height: 100%;
+  margin-bottom: 5%;
 }
 
 .lean-canvas {
@@ -75,7 +73,9 @@ button:hover {
 }
 
 .canvas-box {
-  background: #70859d;
+  display: flex;
+  flex-direction: column;
+  background: #e0e6ec;
   border-radius: 1vw;
   max-height: 100%;
 }

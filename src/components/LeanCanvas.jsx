@@ -17,6 +17,7 @@ class LeanCanvas extends Component {
       ca: {},
       c: {},
       rs: {},
+      title: this.props.title,
     };
 
     !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
@@ -54,10 +55,14 @@ class LeanCanvas extends Component {
       const state = snapshot.val();
       this.setState(state);
       this.updateBoxes();
+      this.callbackTitle();
     });
   };
 
   writeCanvasData = () => {
+    this.setState({
+      title: this.props.title,
+    });
     firebase.database().ref("/").set(this.state);
   };
 
@@ -70,6 +75,10 @@ class LeanCanvas extends Component {
       [key]: data,
     });
     this.writeCanvasData();
+  };
+
+  callbackTitle = () => {
+    this.props.parentCallback(this.state.title);
   };
 
   render() {

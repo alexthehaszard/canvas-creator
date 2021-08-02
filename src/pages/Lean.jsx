@@ -8,21 +8,27 @@ class Lean extends Component {
 
     this.lean = React.createRef();
 
+    /* On load the title should start as Untitled, but will get a title
+    from the database if one exists */
     this.state = {
-      title: "untitled",
+      title: "Untitled",
     };
   }
 
+  // When the title is changed locally, update the function
   updateTitle = (value) => {
     this.setState({
       title: value.target.value,
     });
-    console.log("trying to send");
+    // Send an updated debounced version of the new title to the database
     this.sendUpdatedTitle();
   };
 
+  /* Create an instance of the debounce function that will be called on change
+  of the title */
   sendUpdatedTitle = debounce(() => this.lean.current.writeCanvasData(), 1000);
 
+  // When a new title is received from the database, update the state
   callbackFunction = (title) => {
     this.setState({
       title: title,

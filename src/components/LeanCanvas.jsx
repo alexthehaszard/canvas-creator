@@ -7,6 +7,7 @@ class LeanCanvas extends Component {
   constructor(props) {
     super(props);
 
+    // Initiate all of the different objects in the state
     this.state = {
       p: {},
       tm: {},
@@ -22,6 +23,7 @@ class LeanCanvas extends Component {
 
     !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
+    // Create a reference for all of the different elements to get callbacks from
     this.p = React.createRef();
     this.tm = React.createRef();
     this.s = React.createRef();
@@ -32,12 +34,12 @@ class LeanCanvas extends Component {
     this.c = React.createRef();
     this.rs = React.createRef();
 
+    // Bind the callback function to the component
     this.callbackFunction = this.callbackFunction.bind(this);
   }
 
-  // TODO send only packets that are changed to the database.
-
   updateBoxes = () => {
+    // Update all of the boxes from new database information
     this.p.current.updateFromDB(this.state.p);
     this.tm.current.updateFromDB(this.state.tm);
     this.s.current.updateFromDB(this.state.s);
@@ -50,6 +52,7 @@ class LeanCanvas extends Component {
   };
 
   getCanvasData = () => {
+    // Instantiate a connection to the database, and get live information from it
     let ref = firebase.database().ref("/");
     ref.on("value", (snapshot) => {
       const state = snapshot.val();
@@ -60,6 +63,7 @@ class LeanCanvas extends Component {
   };
 
   writeCanvasData = () => {
+    // Write information to the database when it is updated
     this.setState({
       title: this.props.title,
     });
@@ -67,10 +71,13 @@ class LeanCanvas extends Component {
   };
 
   componentDidMount = () => {
+    // When the component is mounted, start getting information from the database
     this.getCanvasData();
   };
 
   callbackFunction = (data, key) => {
+    /* When information is received from the individual elements, 
+    update the state and send the information to the database */
     this.setState({
       [key]: data,
     });
@@ -78,9 +85,11 @@ class LeanCanvas extends Component {
   };
 
   callbackTitle = () => {
+    // When the title is updated in the database, send it back to the "Lean" component
     this.props.parentCallback(this.state.title);
   };
 
+  // All components need to be individually called as they all have individual requirements
   render() {
     return (
       <div className="lean-canvas" onKeyDown={this.startTyping}>

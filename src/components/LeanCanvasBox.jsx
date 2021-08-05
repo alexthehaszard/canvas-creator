@@ -45,8 +45,6 @@ class LeanCanvasBox extends Component {
       inputText: event.target.value,
     });
     this.updateButton(event.target.value);
-    // this.props.parentCallback(event.target.value, this.props.name);
-    // localStorage.setItem(this.props.name, event.target.value);
   };
 
   sendToDB = () => {

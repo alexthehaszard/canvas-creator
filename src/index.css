@@ -1,20 +1,34 @@
+:root {
+  --primary: #bdd0e2;
+  --secondary: #e0e6ec;
+  --font-colour-primary: #15353f;
+  --font-colour-secondary: #204e5c;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  color: #204e5c;
+  color: var(--font-colour-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #ffffff;
+  background: white;
 }
 
 input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   background: none;
+  color: var(--font-colour-primary);
   border: none;
   border-radius: 5px;
   transition: background 0.5s ease;
   padding: 5px;
+  width: 40%;
+  font-weight: bold;
+  font-size: large;
 }
 
 input:hover {
@@ -32,14 +46,16 @@ h3 {
 }
 
 nav {
-  background-color: #bdd0e2;
+  background-color: var(--primary);
   margin: 1vw 1vw 0 1vw;
   height: 10vh;
+  width: 57.4vw;
   display: flex;
   align-items: center;
   padding-left: 1vw;
   font-size: 1.3vw;
   border-radius: 1vw;
+  z-index: 9999;
 }
 
 textarea {
@@ -55,7 +71,7 @@ textarea {
   padding: 0.5em 1em;
   border: none;
   border-radius: 0.5vw;
-  color: #204e5c;
+  color: var(--font-colour-secondary);
 }
 
 textarea:hover {
@@ -71,23 +87,29 @@ textarea:hover {
 }
 
 .lean-canvas {
+  position: fixed;
   padding: 1vw;
   display: grid;
   grid-template:
+    "blank blank blank blank blank blank small-1 small-1 small-2 small-2 "
     "large-1 large-1 large-2 large-2 large-3 large-3 small-1 small-1 small-2 small-2 "
     "large-1 large-1 large-2 large-2 large-3 large-3 small-3 small-3 small-4 small-4 "
+    "large-1 large-1 large-2 large-2 large-3 large-3 small-3 small-3 small-4 small-4 "
+    "bar bar bar bar bar bar bar bar bar bar"
     "wide-1 wide-1 wide-1 wide-1 wide-1 wide-2 wide-2 wide-2 wide-2 wide-2 ";
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 10vh 1fr 10vh 1fr 10px 1fr;
   grid-template-columns: repeat(10, 1fr);
   grid-gap: 1vw;
-  height: 84vh;
+  height: 96vh;
   width: 98vw;
+  top: 0;
+  z-index: -1;
 }
 
 .canvas-box {
   display: flex;
   flex-direction: column;
-  background: #e0e6ec;
+  background: var(--secondary);
   border-radius: 1vw;
   max-height: 100%;
 }

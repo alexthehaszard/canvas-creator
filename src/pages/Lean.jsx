@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LeanCanvas from "../components/LeanCanvas";
 import { debounce } from "debounce";
+import { withRouter } from "react-router";
 
 class Lean extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Lean extends Component {
     from the database if one exists */
     this.state = {
       title: "Untitled",
+      id: this.props.match.params.id,
     };
   }
 
@@ -44,6 +46,7 @@ class Lean extends Component {
         <main>
           <LeanCanvas
             title={this.state.title}
+            id={this.state.id}
             parentCallback={this.callbackFunction}
             ref={this.lean}
           />
@@ -53,4 +56,4 @@ class Lean extends Component {
   }
 }
 
-export default Lean;
+export default withRouter(Lean);

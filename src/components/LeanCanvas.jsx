@@ -9,18 +9,19 @@ class LeanCanvas extends Component {
 
     // Initiate all of the different objects in the state
     this.state = {
-      p: {},
-      tm: {},
-      s: {},
-      ea: {},
-      sc: {},
-      uvp: {},
-      ca: {},
-      c: {},
-      rs: {},
+      p: "",
+      tm: "",
+      s: "",
+      ea: "",
+      sc: "",
+      uvp: "",
+      ca: "",
+      c: "",
+      rs: "",
       title: this.props.title,
     };
 
+    // Connect to the Firebase Realtime Database
     !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
     // Create a reference for all of the different elements to get callbacks from
@@ -52,8 +53,9 @@ class LeanCanvas extends Component {
   };
 
   getCanvasData = () => {
+    console.log(this.props.id);
     // Instantiate a connection to the database, and get live information from it
-    let ref = firebase.database().ref("/");
+    let ref = firebase.database().ref(`/${this.props.id}/`);
     ref.on("value", (snapshot) => {
       const state = snapshot.val();
       this.setState(state);
@@ -67,7 +69,7 @@ class LeanCanvas extends Component {
     this.setState({
       title: this.props.title,
     });
-    firebase.database().ref("/").set(this.state);
+    firebase.database().ref(`/${this.props.id}/`).set(this.state);
   };
 
   componentDidMount = () => {
@@ -142,6 +144,14 @@ class LeanCanvas extends Component {
           parentCallback={this.callbackFunction}
           ref={this.ca}
         />
+        <div
+          style={{
+            gridArea: "bar",
+            width: "100%",
+            backgroundColor: "#bdd0e2",
+            borderRadius: "10px",
+          }}
+        ></div>
         <LeanCanvasBox
           name="c"
           title="Costs"

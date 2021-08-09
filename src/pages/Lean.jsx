@@ -40,7 +40,7 @@ class Lean extends Component {
   render() {
     return (
       <main>
-        <nav>
+        <nav className="lean-nav">
           <input value={this.state.title} onChange={this.updateTitle}></input>
         </nav>
         <main>

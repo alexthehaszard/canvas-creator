@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Main extends Component {
   constructor(props) {
@@ -19,7 +20,10 @@ class Main extends Component {
               of the process.
             </h1>
           </div>
-          <div className="blurb lean"></div>
+          <div className="blurb lean">
+            <h1>The Lean Canvas can help flesh out your business idea.</h1>
+            <Link to="/lean/">Create new lean canvas</Link>
+          </div>
           <div className="blurb unique"></div>
         </main>
       </>

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import LeanCanvasBox from "./LeanCanvasBox";
 import firebase from "firebase";
-import config from "../config.js";
 
 class LeanCanvas extends Component {
   constructor(props) {
     super(props);
 
-    // Initiate all of the different objects in the state
+    // Initiate all of the different strings in the state
     this.state = {
       p: "",
       tm: "",
@@ -21,8 +20,17 @@ class LeanCanvas extends Component {
       title: this.props.title,
     };
 
+    console.log(process.env.REACT_APP_DATABASE_URL);
+
     // Connect to the Firebase Realtime Database
-    !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+    !firebase.apps.length
+      ? firebase.initializeApp({
+          apiKey: process.env.REACT_APP_API_KEY,
+          authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+          databaseURL: process.env.REACT_APP_DATABASE_URL,
+          storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+        })
+      : firebase.app();
 
     // Create a reference for all of the different elements to get callbacks from
     this.p = React.createRef();

@@ -70,12 +70,15 @@ class LeanCanvasBox extends Component {
   render() {
     return (
       <div
-        className={`canvas-box`}
+        className={`canvas-box ${this.props.zindex}`}
         style={{ gridArea: this.props.grid }}
         // onMouseEnter={() => this.mouseOver()}
         // onMouseLeave={() => this.mouseOff()}
       >
         <h3>{this.props.title}</h3>
+        <button onClick={() => this.props.parentCallback(null, null, "p")}>
+          ?
+        </button>
         <div className="list">
           <div
             style={{

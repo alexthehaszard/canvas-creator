@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LeanCanvasBox from "./LeanCanvasBox";
 import firebase from "firebase";
+import { debounce } from "debounce";
 
 class LeanCanvas extends Component {
   constructor(props) {
@@ -17,10 +18,10 @@ class LeanCanvas extends Component {
       ca: "",
       c: "",
       rs: "",
+      showingTut: "none",
+      pZindex: "",
       title: this.props.title,
     };
-
-    console.log(process.env.REACT_APP_DATABASE_URL);
 
     // Connect to the Firebase Realtime Database
     !firebase.apps.length
@@ -74,9 +75,6 @@ class LeanCanvas extends Component {
 
   writeCanvasData = () => {
     // Write information to the database when it is updated
-    this.setState({
-      title: this.props.title,
-    });
     firebase.database().ref(`/${this.props.id}/`).set(this.state);
   };
 
@@ -85,28 +83,64 @@ class LeanCanvas extends Component {
     this.getCanvasData();
   };
 
-  callbackFunction = (data, key) => {
-    /* When information is received from the individual elements, 
-    update the state and send the information to the database */
-    this.setState({
-      [key]: data,
-    });
-    this.writeCanvasData();
+  callbackFunction = (data, key, showTut) => {
+    if (!showTut) {
+      /* When information is received from the individual elements, 
+      update the state and send the information to the database */
+      this.setState({
+        [key]: data,
+      });
+      this.writeCanvasData();
+    } else {
+      if (showTut === "p") {
+        this.showProblemTutorial();
+      }
+    }
   };
+
+  updateTitle = (value) => {
+    console.log(this.state.title, value.target.value);
+    this.setState({
+      title: value.target.value,
+    });
+    this.debounceTitle();
+    console.log(this.state.title);
+  };
+
+  debounceTitle = debounce(() => this.writeCanvasData(), 5000);
 
   callbackTitle = () => {
     // When the title is updated in the database, send it back to the "Lean" component
     this.props.parentCallback(this.state.title);
   };
 
+  showProblemTutorial = () => {
+    this.setState({
+      pZindex: "zindex-top",
+      showingTut: "initial",
+      blurbText:
+        "This is where you can put some problems that people have in their lives that your product idea can solve.",
+    });
+  };
+
   // All components need to be individually called as they all have individual requirements
   render() {
     return (
-      <div className="lean-canvas" onKeyDown={this.startTyping}>
+      <div className="lean-canvas">
+        <div
+          className="background-gray"
+          style={{ display: this.state.showingTut }}
+        >
+          <p class="zindex-top blurb-text">{this.state.blurbText}</p>
+        </div>
+        <div className="lean-nav">
+          <input value={this.state.title} onChange={this.updateTitle}></input>
+        </div>
         <LeanCanvasBox
           name="p"
           title="Problem"
           grid="large-1"
+          zindex={this.state.pZindex}
           parentCallback={this.callbackFunction}
           ref={this.p}
         />

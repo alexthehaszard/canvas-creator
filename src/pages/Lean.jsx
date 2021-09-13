@@ -39,19 +39,24 @@ class Lean extends Component {
 
   render() {
     return (
-      <main>
-        <nav className="lean-nav">
-          <input value={this.state.title} onChange={this.updateTitle}></input>
-        </nav>
+      <div>
         <main>
           <LeanCanvas
             title={this.state.title}
             id={this.state.id}
             parentCallback={this.callbackFunction}
             ref={this.lean}
+            nav={
+              <div className="lean-nav">
+                <input
+                  value={this.state.title}
+                  onChange={this.updateTitle}
+                ></input>
+              </div>
+            }
           />
         </main>
-      </main>
+      </div>
     );
   }
 }

@@ -4,8 +4,25 @@ import { Link } from "react-router-dom";
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      previous: { text: "", id: "" },
+    };
   }
+
+  componentDidMount = () => {
+    this.getPreviousCanvasID();
+  };
+
+  getPreviousCanvasID = () => {
+    const id = localStorage.getItem("canvasID");
+    console.log(id);
+    if (id) {
+      this.setState({
+        previous: { text: "View previously used canvas", id: id },
+      });
+    }
+  };
+
   render() {
     return (
       <>
@@ -23,6 +40,10 @@ class Main extends Component {
           <div className="blurb lean">
             <h1>The Lean Canvas can help flesh out your business idea.</h1>
             <Link to="/lean/">Create new lean canvas</Link>
+            <br />
+            <Link to={`/lean/${this.state.previous.id}`}>
+              {this.state.previous.text}
+            </Link>
           </div>
           <div className="blurb unique"></div>
         </main>

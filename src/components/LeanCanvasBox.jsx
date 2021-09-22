@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { debounce } from "debounce";
 
 class LeanCanvasBox extends Component {
   constructor(props) {
@@ -51,13 +50,11 @@ class LeanCanvasBox extends Component {
     this.props.parentCallback(this.state.inputText, this.props.name);
   };
 
-  callbackToParent = debounce(() => this.sendToDB(), 1000);
-
   updateButton = (text) => {
     let b = (
       <textarea
         onChange={this.updateText}
-        onKeyUp={this.callbackToParent}
+        onKeyUp={this.sendToDB}
         value={text}
       ></textarea>
     );

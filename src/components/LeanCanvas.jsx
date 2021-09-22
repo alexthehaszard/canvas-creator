@@ -62,6 +62,7 @@ class LeanCanvas extends Component {
 
   getCanvasData = () => {
     console.log(this.props.id);
+    localStorage.setItem("canvasID", this.props.id);
     // Instantiate a connection to the database, and get live information from it
     let ref = firebase.database().ref(`/${this.props.id}/`);
     ref.on("value", (snapshot) => {
@@ -108,7 +109,7 @@ class LeanCanvas extends Component {
     this.debounceInformation();
   };
 
-  debounceInformation = debounce(() => this.writeCanvasData(), 1500);
+  debounceInformation = debounce(() => this.writeCanvasData(), 2000);
 
   closeTutorial = () => {
     let state = this.state;

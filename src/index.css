@@ -164,14 +164,15 @@ textarea:hover {
 }
 
 .zindex-top {
-  z-index: 9999;
+  z-index: 1000;
 }
 
 .blurb-text {
+  display: flex;
   background-color: white;
-  width: 20vw;
+  width: fit-content;
   margin: 10px;
-  padding: 10px;
+  padding: 1px 15px;
   border-radius: 10px;
 }
 

@@ -9,17 +9,16 @@ class LeanCanvas extends Component {
 
     // Initiate all of the different strings in the state
     this.state = {
-      p: "",
-      tm: "",
-      s: "",
-      ea: "",
-      sc: "",
-      uvp: "",
-      ca: "",
-      c: "",
-      rs: "",
+      p: ["", ""],
+      tm: ["", ""],
+      s: ["", ""],
+      ea: ["", ""],
+      sc: ["", ""],
+      uvp: ["", ""],
+      ca: ["", ""],
+      c: ["", ""],
+      rs: ["", ""],
       showingTut: "none",
-      pZindex: "",
       title: this.props.title,
     };
 
@@ -50,15 +49,15 @@ class LeanCanvas extends Component {
 
   updateBoxes = () => {
     // Update all of the boxes from new database information
-    this.p.current.updateFromDB(this.state.p);
-    this.tm.current.updateFromDB(this.state.tm);
-    this.s.current.updateFromDB(this.state.s);
-    this.ea.current.updateFromDB(this.state.ea);
-    this.sc.current.updateFromDB(this.state.sc);
-    this.uvp.current.updateFromDB(this.state.uvp);
-    this.ca.current.updateFromDB(this.state.ca);
-    this.c.current.updateFromDB(this.state.c);
-    this.rs.current.updateFromDB(this.state.rs);
+    this.p.current.updateFromDB(this.state.p[0]);
+    this.tm.current.updateFromDB(this.state.tm[0]);
+    this.s.current.updateFromDB(this.state.s[0]);
+    this.ea.current.updateFromDB(this.state.ea[0]);
+    this.sc.current.updateFromDB(this.state.sc[0]);
+    this.uvp.current.updateFromDB(this.state.uvp[0]);
+    this.ca.current.updateFromDB(this.state.ca[0]);
+    this.c.current.updateFromDB(this.state.c[0]);
+    this.rs.current.updateFromDB(this.state.rs[0]);
   };
 
   getCanvasData = () => {
@@ -69,11 +68,15 @@ class LeanCanvas extends Component {
       const state = snapshot.val();
       this.setState(state);
       this.updateBoxes();
-      this.callbackTitle();
+      if (!localStorage.getItem("seenTutorial")) {
+        localStorage.setItem("seenTutorial", true);
+        this.showTutorial("p");
+      }
     });
   };
 
   writeCanvasData = () => {
+    console.log("sent");
     // Write information to the database when it is updated
     firebase.database().ref(`/${this.props.id}/`).set(this.state);
   };
@@ -81,45 +84,95 @@ class LeanCanvas extends Component {
   componentDidMount = () => {
     // When the component is mounted, start getting information from the database
     this.getCanvasData();
+    console.log(localStorage.getItem("seenTutorial"));
   };
 
   callbackFunction = (data, key, showTut) => {
     if (!showTut) {
+      let temp = [data, this.state[key][1]];
       /* When information is received from the individual elements, 
       update the state and send the information to the database */
       this.setState({
-        [key]: data,
+        [key]: temp,
       });
-      this.writeCanvasData();
+      this.debounceInformation();
     } else {
-      if (showTut === "p") {
-        this.showProblemTutorial();
-      }
+      this.showTutorial(showTut);
     }
   };
 
   updateTitle = (value) => {
-    console.log(this.state.title, value.target.value);
     this.setState({
       title: value.target.value,
     });
     this.debounceTitle();
-    console.log(this.state.title);
   };
 
-  debounceTitle = debounce(() => this.writeCanvasData(), 5000);
+  debounceInformation = debounce(() => this.writeCanvasData(), 1500);
 
-  callbackTitle = () => {
-    // When the title is updated in the database, send it back to the "Lean" component
-    this.props.parentCallback(this.state.title);
+  closeTutorial = () => {
+    let state = this.state;
+    state.p[1] = "";
+    state.tm[1] = "";
+    state.s[1] = "";
+    state.ea[1] = "";
+    state.sc[1] = "";
+    state.uvp[1] = "";
+    state.ca[1] = "";
+    state.c[1] = "";
+    state.rs[1] = "";
+    state.showingTut = "none";
+    state.blurbText = "";
+    this.setState(state);
   };
 
-  showProblemTutorial = () => {
+  nextTutorial = () => {
+    let keys = ["p", "tm", "s", "ea", "sc", "uvp", "ca", "c", "rs"];
+    for (let i = 0; i < keys.length; i++) {
+      if (this.state[keys[i]][1] === "zindex-top") {
+        this.closeTutorial();
+        if (i < keys.length - 1) this.showTutorial(keys[i + 1]);
+        i = keys.length;
+      }
+    }
+  };
+
+  showTutorial = (key) => {
+    let text = "";
+    if (key === "p") {
+      text =
+        "This is where you can put problems that your product idea can solve.";
+    } else if (key === "tm") {
+      text =
+        "This is where you can put information about the people that will use your product. Age, location, occupation etc.";
+    } else if (key === "s") {
+      text =
+        "This is where you put ideas for solutions to the problems your target market faces.";
+    } else if (key === "ea") {
+      text =
+        "This is where you can put existing alternatives that already exist to solve your problems.";
+    } else if (key === "sc") {
+      text =
+        "This is where you can put where you will be selling your product. Online store, retailers, door-to-door etc.";
+    } else if (key === "uvp") {
+      text =
+        "This is where you put what makes your product unique, and will make it stand out from the existing alternatives.";
+    } else if (key === "ca") {
+      text =
+        "This is where you put the advantage that you have over the existing alternatives of your product.";
+    } else if (key === "c") {
+      text =
+        "This is where you put all of the costs that are associated with you business";
+    } else if (key === "rs") {
+      text =
+        "This is where you list all of the money that is coming into the business";
+    }
+    let temp = this.state[key];
+    temp[1] = "zindex-top";
     this.setState({
-      pZindex: "zindex-top",
+      [key]: temp,
       showingTut: "initial",
-      blurbText:
-        "This is where you can put some problems that people have in their lives that your product idea can solve.",
+      blurbText: text,
     });
   };
 
@@ -131,7 +184,11 @@ class LeanCanvas extends Component {
           className="background-gray"
           style={{ display: this.state.showingTut }}
         >
-          <p class="zindex-top blurb-text">{this.state.blurbText}</p>
+          <div className="blurb-text">
+            <p style={{ paddingRight: "10px" }}>{this.state.blurbText}</p>
+            <button onClick={this.closeTutorial}>Close</button>
+            <button onClick={this.nextTutorial}>Next</button>
+          </div>
         </div>
         <div className="lean-nav">
           <input value={this.state.title} onChange={this.updateTitle}></input>
@@ -140,7 +197,7 @@ class LeanCanvas extends Component {
           name="p"
           title="Problem"
           grid="large-1"
-          zindex={this.state.pZindex}
+          zindex={this.state.p[1]}
           parentCallback={this.callbackFunction}
           ref={this.p}
         />
@@ -148,6 +205,7 @@ class LeanCanvas extends Component {
           name="tm"
           title="Target Market"
           grid="large-2"
+          zindex={this.state.tm[1]}
           parentCallback={this.callbackFunction}
           ref={this.tm}
         />
@@ -155,6 +213,7 @@ class LeanCanvas extends Component {
           name="s"
           title="Solution"
           grid="large-3"
+          zindex={this.state.s[1]}
           parentCallback={this.callbackFunction}
           ref={this.s}
         />
@@ -162,6 +221,7 @@ class LeanCanvas extends Component {
           name="ea"
           title="Existing Alternatives"
           grid="small-1"
+          zindex={this.state.ea[1]}
           parentCallback={this.callbackFunction}
           ref={this.ea}
         />
@@ -169,6 +229,7 @@ class LeanCanvas extends Component {
           name="sc"
           title="Sales Channels"
           grid="small-2"
+          zindex={this.state.sc[1]}
           parentCallback={this.callbackFunction}
           ref={this.sc}
         />
@@ -176,6 +237,7 @@ class LeanCanvas extends Component {
           name="uvp"
           title="Unique Value Proposition"
           grid="small-3"
+          zindex={this.state.uvp[1]}
           parentCallback={this.callbackFunction}
           ref={this.uvp}
         />
@@ -183,6 +245,7 @@ class LeanCanvas extends Component {
           name="ca"
           title="Competitive Advantage"
           grid="small-4"
+          zindex={this.state.ca[1]}
           parentCallback={this.callbackFunction}
           ref={this.ca}
         />
@@ -198,6 +261,7 @@ class LeanCanvas extends Component {
           name="c"
           title="Costs"
           grid="wide-1"
+          zindex={this.state.c[1]}
           parentCallback={this.callbackFunction}
           ref={this.c}
         />
@@ -205,6 +269,7 @@ class LeanCanvas extends Component {
           name="rs"
           title="Revenue Streams"
           grid="wide-2"
+          zindex={this.state.rs[1]}
           parentCallback={this.callbackFunction}
           ref={this.rs}
         />

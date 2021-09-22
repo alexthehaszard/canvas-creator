@@ -8,7 +8,7 @@ class LeanCanvasBox extends Component {
     let b = (
       <textarea
         onChange={this.updateText}
-        onKeyUp={this.callbackToParent}
+        onKeyUp={this.sendToDB}
         value={i}
       ></textarea>
     );
@@ -48,7 +48,6 @@ class LeanCanvasBox extends Component {
   };
 
   sendToDB = () => {
-    console.log("sent");
     this.props.parentCallback(this.state.inputText, this.props.name);
   };
 
@@ -76,7 +75,9 @@ class LeanCanvasBox extends Component {
         // onMouseLeave={() => this.mouseOff()}
       >
         <h3>{this.props.title}</h3>
-        <button onClick={() => this.props.parentCallback(null, null, "p")}>
+        <button
+          onClick={() => this.props.parentCallback(null, null, this.props.name)}
+        >
           ?
         </button>
         <div className="list">

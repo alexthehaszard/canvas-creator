@@ -105,7 +105,7 @@ class LeanCanvas extends Component {
     this.setState({
       title: value.target.value,
     });
-    this.debounceTitle();
+    this.debounceInformation();
   };
 
   debounceInformation = debounce(() => this.writeCanvasData(), 1500);

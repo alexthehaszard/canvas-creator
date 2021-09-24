@@ -71,12 +71,17 @@ class LeanCanvasBox extends Component {
         // onMouseEnter={() => this.mouseOver()}
         // onMouseLeave={() => this.mouseOff()}
       >
-        <h3>{this.props.title}</h3>
-        <button
-          onClick={() => this.props.parentCallback(null, null, this.props.name)}
-        >
-          ?
-        </button>
+        <div className="canvas-box-header">
+          <h3>{this.props.title}</h3>
+          <button
+            onClick={() =>
+              this.props.parentCallback(null, null, this.props.name)
+            }
+            className="canvas-box-tut"
+          >
+            ?
+          </button>
+        </div>
         <div className="list">
           <div
             style={{

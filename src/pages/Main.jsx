@@ -39,9 +39,16 @@ class Main extends Component {
           </div>
           <div className="blurb lean">
             <h1>The Lean Canvas can help flesh out your business idea.</h1>
-            <Link to="/lean/">Create new lean canvas</Link>
+            <div className="main-link-wrapper">
+              <Link to="/lean/" className="main-link">
+                Create new lean canvas
+              </Link>
+              <Link to="/lean/" className="main-link">
+                ⟶
+              </Link>
+            </div>
             <br />
-            <Link to={`/lean/${this.state.previous.id}`}>
+            <Link to={`/lean/${this.state.previous.id}`} className="main-link">
               {this.state.previous.text}
             </Link>
           </div>

@@ -18,7 +18,7 @@ class Main extends Component {
     console.log(id);
     if (id) {
       this.setState({
-        previous: { text: "View previously used canvas", id: id },
+        previous: { text: "Edit your previously used Lean Canvas", id: id },
       });
     }
   };
@@ -32,19 +32,17 @@ class Main extends Component {
               <h1>Canvas Creator</h1>
             </div>
             <h1>
-              These tools are designed to assist entrepreneurs to create a solid
-              foundation for a business idea, and lead them into the next step
-              of the process.
+              A Lean Canvas is a quick way to map out your product idea and
+              business model on one page. <br />
+              It gets you thinking about your product and your business from the
+              point of view of your customer.
             </h1>
           </div>
           <div className="blurb lean">
-            <h1>The Lean Canvas can help flesh out your business idea.</h1>
+            <h1>Create or Edit your Lean Canvas</h1>
             <div className="main-link-wrapper">
               <Link to="/lean/" className="main-link">
-                Create new lean canvas
-              </Link>
-              <Link to="/lean/" className="main-link">
-                ⟶
+                Create new Lean Canvas
               </Link>
             </div>
             <br />
@@ -52,7 +50,6 @@ class Main extends Component {
               {this.state.previous.text}
             </Link>
           </div>
-          <div className="blurb unique"></div>
         </main>
       </>
     );

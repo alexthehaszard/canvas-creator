@@ -19,7 +19,7 @@ class LeanCanvas extends Component {
       c: ["", ""],
       rs: ["", ""],
       showingTut: "none",
-      title: this.props.title,
+      title: [this.props.title, ""],
     };
 
     // Connect to the Firebase Realtime Database
@@ -62,7 +62,6 @@ class LeanCanvas extends Component {
 
   getCanvasData = () => {
     console.log(this.props.id);
-    localStorage.setItem("canvasID", this.props.id);
     // Instantiate a connection to the database, and get live information from it
     let ref = firebase.database().ref(`/${this.props.id}/`);
     ref.on("value", (snapshot) => {
@@ -71,13 +70,14 @@ class LeanCanvas extends Component {
       this.updateBoxes();
       if (!localStorage.getItem("seenTutorial")) {
         localStorage.setItem("seenTutorial", true);
-        this.showTutorial("p");
+        this.showTutorial("title");
       }
     });
   };
 
   writeCanvasData = () => {
     console.log("sent");
+    localStorage.setItem("canvasID", this.props.id);
     // Write information to the database when it is updated
     firebase.database().ref(`/${this.props.id}/`).set(this.state);
   };
@@ -103,8 +103,10 @@ class LeanCanvas extends Component {
   };
 
   updateTitle = (value) => {
+    let temp = this.state.title;
+    temp[0] = value.target.value;
     this.setState({
-      title: value.target.value,
+      title: temp,
     });
     this.debounceInformation();
   };
@@ -113,6 +115,7 @@ class LeanCanvas extends Component {
 
   closeTutorial = () => {
     let state = this.state;
+    state.title[1] = "";
     state.p[1] = "";
     state.tm[1] = "";
     state.s[1] = "";
@@ -128,7 +131,7 @@ class LeanCanvas extends Component {
   };
 
   nextTutorial = () => {
-    let keys = ["p", "tm", "s", "ea", "sc", "uvp", "ca", "c", "rs"];
+    let keys = ["title", "p", "tm", "s", "ea", "sc", "uvp", "ca", "c", "rs"];
     for (let i = 0; i < keys.length; i++) {
       if (this.state[keys[i]][1] === "zindex-top") {
         this.closeTutorial();
@@ -140,7 +143,10 @@ class LeanCanvas extends Component {
 
   showTutorial = (key) => {
     let text = "";
-    if (key === "p") {
+    if (key === "title") {
+      text =
+        "This is where you can share, print and change the title your Lean Canvas";
+    } else if (key === "p") {
       text =
         "This is where you can put problems that your product idea can solve.";
     } else if (key === "tm") {
@@ -185,14 +191,78 @@ class LeanCanvas extends Component {
           className="background-gray"
           style={{ display: this.state.showingTut }}
         >
-          <div className="blurb-text">
-            <p style={{ paddingRight: "10px" }}>{this.state.blurbText}</p>
-            <button onClick={this.closeTutorial}>Close</button>
-            <button onClick={this.nextTutorial}>Next</button>
+          <div
+            className="blurb-text"
+            style={{
+              marginTop: this.state.title[1] ? "15vh" : "2vh",
+            }}
+          >
+            <p
+              style={{
+                paddingRight: "10px",
+              }}
+            >
+              {this.state.blurbText}
+            </p>
+            <div className="blurb-buttons-wrapper">
+              <button onClick={this.closeTutorial}>Close</button>
+              <button onClick={this.nextTutorial}>Next</button>
+            </div>
           </div>
         </div>
-        <div className="lean-nav">
-          <input value={this.state.title} onChange={this.updateTitle}></input>
+        <div className={`lean-nav ${this.state.title[1]}`}>
+          <input
+            value={this.state.title[0]}
+            onChange={this.updateTitle}
+          ></input>
+          <div className="nav-button-wrapper">
+            <button
+              onClick={() => this.showTutorial("title")}
+              className="nav-button"
+            >
+              <img
+                alt="print"
+                src="https://cdn-icons-png.flaticon.com/512/1828/1828940.png"
+                className="nav-button-print"
+              ></img>
+            </button>
+            <button
+              onClick={() => {
+                const dummy = document.createElement("input");
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+                window.alert("Link copied to clipboard");
+              }}
+              className="nav-button"
+            >
+              <img
+                alt="print"
+                src="https://cdn-icons-png.flaticon.com/512/1828/1828959.png"
+                className="nav-button-print"
+              ></img>
+            </button>
+            <button onClick={() => window.print()} className="nav-button">
+              <img
+                alt="print"
+                src="https://cdn-icons-png.flaticon.com/512/3022/3022251.png"
+                className="nav-button-print"
+              ></img>
+            </button>
+            <a
+              href="https://canvas-creator.herokuapp.com"
+              className="nav-button"
+              style={{ marginLeft: "3px" }}
+            >
+              <img
+                alt="print"
+                src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
+                className="nav-button-print"
+              ></img>
+            </a>
+          </div>
         </div>
         <LeanCanvasBox
           name="p"

@@ -46,6 +46,16 @@ h3 {
   margin: 0.8vw 1.5vw;
 }
 
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin-right: 2rem;
+}
+
 .main-link {
   text-decoration-thickness: 0.15rem;
   color: var(--font-colour-primary);
@@ -155,7 +165,7 @@ textarea:hover {
   padding: 1vw;
   display: grid;
   width: 98vw;
-  height: 96vh;
+  height: 90vh;
   grid-template:
     "blurb lean"
     "blurb lean";

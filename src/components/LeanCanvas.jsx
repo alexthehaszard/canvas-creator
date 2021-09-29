@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import LeanCanvasBox from "./LeanCanvasBox";
 import firebase from "firebase";
+import { Link } from "react-router-dom";
 import { debounce } from "debounce";
 
 class LeanCanvas extends Component {
@@ -157,22 +158,21 @@ class LeanCanvas extends Component {
         "This is where you put ideas for solutions to the problems your target market faces.";
     } else if (key === "ea") {
       text =
-        "This is where you can put existing alternatives that already exist to solve your problems.";
+        "List all of the existing alternatives that already exist to solve your problems.";
     } else if (key === "sc") {
       text =
-        "This is where you can put where you will be selling your product. Online store, retailers, door-to-door etc.";
+        "List all of the methods of selling your product. Online store, retailers, door-to-door etc.";
     } else if (key === "uvp") {
       text =
-        "This is where you put what makes your product unique, and will make it stand out from the existing alternatives.";
+        "Give a clear message as to why a customer should purchase your product";
     } else if (key === "ca") {
       text =
-        "This is where you put the advantage that you have over the existing alternatives of your product.";
+        "Identify what advantage your product has which cannot be easily copied by competitors";
     } else if (key === "c") {
       text =
         "This is where you put all of the costs that are associated with you business";
     } else if (key === "rs") {
-      text =
-        "This is where you list all of the money that is coming into the business";
+      text = "List your main sources of revenue.";
     }
     let temp = this.state[key];
     temp[1] = "zindex-top";
@@ -251,8 +251,8 @@ class LeanCanvas extends Component {
                 className="nav-button-print"
               ></img>
             </button>
-            <a
-              href="https://canvas-creator.herokuapp.com"
+            <Link
+              to="../../"
               className="nav-button"
               style={{ marginLeft: "3px" }}
             >
@@ -261,7 +261,7 @@ class LeanCanvas extends Component {
                 src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
                 className="nav-button-print"
               ></img>
-            </a>
+            </Link>
           </div>
         </div>
         <LeanCanvasBox

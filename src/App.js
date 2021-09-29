@@ -1,5 +1,6 @@
 import Lean from "./pages/Lean";
 import Main from "./pages/Main";
+import Credits from "./pages/Credits";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path="/lean/">
           <Redirect to={`/lean/${generateId(8)}`}></Redirect>
+        </Route>
+        <Route path="/credits/">
+          <Credits />
         </Route>
         <Route path="/">
           <Main />

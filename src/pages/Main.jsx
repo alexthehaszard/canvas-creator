@@ -51,6 +51,10 @@ class Main extends Component {
             </Link>
           </div>
         </main>
+        <footer>
+          <p>© Alex Haszard 2021</p>
+          <Link to="/credits/">Credits</Link>
+        </footer>
       </>
     );
   }

@@ -49,16 +49,18 @@ class LeanCanvas extends Component {
   }
 
   updateBoxes = () => {
-    // Update all of the boxes from new database information
-    this.p.current.updateFromDB(this.state.p[0]);
-    this.tm.current.updateFromDB(this.state.tm[0]);
-    this.s.current.updateFromDB(this.state.s[0]);
-    this.ea.current.updateFromDB(this.state.ea[0]);
-    this.sc.current.updateFromDB(this.state.sc[0]);
-    this.uvp.current.updateFromDB(this.state.uvp[0]);
-    this.ca.current.updateFromDB(this.state.ca[0]);
-    this.c.current.updateFromDB(this.state.c[0]);
-    this.rs.current.updateFromDB(this.state.rs[0]);
+    if (this.p.current.updateFromDB) {
+      // Update all of the boxes from new database information
+      this.p.current.updateFromDB(this.state.p[0]);
+      this.tm.current.updateFromDB(this.state.tm[0]);
+      this.s.current.updateFromDB(this.state.s[0]);
+      this.ea.current.updateFromDB(this.state.ea[0]);
+      this.sc.current.updateFromDB(this.state.sc[0]);
+      this.uvp.current.updateFromDB(this.state.uvp[0]);
+      this.ca.current.updateFromDB(this.state.ca[0]);
+      this.c.current.updateFromDB(this.state.c[0]);
+      this.rs.current.updateFromDB(this.state.rs[0]);
+    }
   };
 
   getCanvasData = () => {
@@ -205,8 +207,23 @@ class LeanCanvas extends Component {
               {this.state.blurbText}
             </p>
             <div className="blurb-buttons-wrapper">
-              <button onClick={this.closeTutorial}>Close</button>
-              <button onClick={this.nextTutorial}>Next</button>
+              <button
+                onClick={this.closeTutorial}
+                className="blurb-button close"
+              >
+                <img
+                  alt="Close"
+                  className="blurb-button"
+                  src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png"
+                ></img>
+              </button>
+              <button onClick={this.nextTutorial} className="blurb-button">
+                <img
+                  alt="Next"
+                  className="blurb-button"
+                  src="https://cdn-icons-png.flaticon.com/512/545/545682.png"
+                ></img>
+              </button>
             </div>
           </div>
         </div>
@@ -221,7 +238,7 @@ class LeanCanvas extends Component {
               className="nav-button"
             >
               <img
-                alt="print"
+                alt="Show Tutorial"
                 src="https://cdn-icons-png.flaticon.com/512/1828/1828940.png"
                 className="nav-button-print"
               ></img>
@@ -239,29 +256,30 @@ class LeanCanvas extends Component {
               className="nav-button"
             >
               <img
-                alt="print"
+                alt="Copy Link"
                 src="https://cdn-icons-png.flaticon.com/512/1828/1828959.png"
                 className="nav-button-print"
               ></img>
             </button>
             <button onClick={() => window.print()} className="nav-button">
               <img
-                alt="print"
+                alt="Print"
                 src="https://cdn-icons-png.flaticon.com/512/3022/3022251.png"
                 className="nav-button-print"
               ></img>
             </button>
-            <Link
-              to="../../"
+            <a
+              href="http://canvas-creator.herokuapp.com"
               className="nav-button"
               style={{ marginLeft: "3px" }}
+              onClick={() => window.location.reload()}
             >
               <img
-                alt="print"
+                alt="Home"
                 src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
                 className="nav-button-print"
               ></img>
-            </Link>
+            </a>
           </div>
         </div>
         <LeanCanvasBox

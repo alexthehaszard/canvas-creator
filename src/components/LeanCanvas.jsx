@@ -147,7 +147,7 @@ class LeanCanvas extends Component {
     let text = "";
     if (key === "title") {
       text =
-        "This is where you can share, print and change the title your Lean Canvas";
+        "This is where you can share, print and change the title of your Lean Canvas";
     } else if (key === "p") {
       text =
         "This is where you can put problems that your product idea can solve.";

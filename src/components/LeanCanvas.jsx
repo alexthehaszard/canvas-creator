@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LeanCanvasBox from "./LeanCanvasBox";
 import firebase from "firebase";
-import { Link } from "react-router-dom";
 import { debounce } from "debounce";
 
 class LeanCanvas extends Component {
@@ -172,7 +171,7 @@ class LeanCanvas extends Component {
         "Identify what advantage your product has which cannot be easily copied by competitors";
     } else if (key === "c") {
       text =
-        "This is where you put all of the costs that are associated with you business";
+        "This is where you put all of the costs that are associated with your business";
     } else if (key === "rs") {
       text = "List your main sources of revenue.";
     }

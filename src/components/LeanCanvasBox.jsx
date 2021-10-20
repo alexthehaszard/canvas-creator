@@ -77,6 +77,7 @@ class LeanCanvasBox extends Component {
             onClick={() =>
               this.props.parentCallback(null, null, this.props.name)
             }
+            title="Help"
             className="canvas-box-tut"
           >
             ?

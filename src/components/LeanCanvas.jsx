@@ -150,7 +150,7 @@ class LeanCanvas extends Component {
         "This is where you can share, print and change the title of your Lean Canvas";
     } else if (key === "p") {
       text =
-        "This is where you can put problems that your product idea can solve.";
+        "This is where you can list the problems that your product idea can solve.";
     } else if (key === "tm") {
       text =
         "This is where you can put information about the people that will use your product. Age, location, occupation etc.";
@@ -173,7 +173,7 @@ class LeanCanvas extends Component {
       text =
         "This is where you put all of the costs that are associated with your business";
     } else if (key === "rs") {
-      text = "List your main sources of revenue.";
+      text = "List all your sources of revenue.";
     }
     let temp = this.state[key];
     temp[1] = "zindex-top";
@@ -238,6 +238,7 @@ class LeanCanvas extends Component {
             >
               <img
                 alt="Show Tutorial"
+                title="Show Tutorial"
                 src="https://cdn-icons-png.flaticon.com/512/1828/1828940.png"
                 className="nav-button-print"
               ></img>
@@ -256,6 +257,7 @@ class LeanCanvas extends Component {
             >
               <img
                 alt="Copy Link"
+                title="Copy Link"
                 src="https://cdn-icons-png.flaticon.com/512/1828/1828959.png"
                 className="nav-button-print"
               ></img>
@@ -263,6 +265,7 @@ class LeanCanvas extends Component {
             <button onClick={() => window.print()} className="nav-button">
               <img
                 alt="Print"
+                title="Print"
                 src="https://cdn-icons-png.flaticon.com/512/3022/3022251.png"
                 className="nav-button-print"
               ></img>
@@ -275,6 +278,7 @@ class LeanCanvas extends Component {
             >
               <img
                 alt="Home"
+                title="Home"
                 src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
                 className="nav-button-print"
               ></img>

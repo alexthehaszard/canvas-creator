@@ -147,6 +147,7 @@ textarea:hover {
 .canvas-box-tut {
   border: none;
   border-radius: 5px;
+  margin-right: -7px;
   background: none;
   cursor: pointer;
   font-size: large;

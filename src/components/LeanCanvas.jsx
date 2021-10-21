@@ -147,7 +147,7 @@ class LeanCanvas extends Component {
     let text = "";
     if (key === "title") {
       text =
-        "This is where you can share, print and change the title of your Lean Canvas";
+        "This is where you can share, print and change the title of your Lean Canvas. Saving will happen automatically, and anyone with the link to this lean canvas will be able to view and edit.";
     } else if (key === "p") {
       text =
         "This is where you can list the problems that your product idea can solve.";
@@ -159,7 +159,7 @@ class LeanCanvas extends Component {
         "This is where you put ideas for solutions to the problems your target market faces.";
     } else if (key === "ea") {
       text =
-        "List all of the existing alternatives that already exist to solve your problems.";
+        "List all of the similar products that are already on the market that solve your problem";
     } else if (key === "sc") {
       text =
         "List all of the methods of selling your product. Online store, retailers, door-to-door etc.";

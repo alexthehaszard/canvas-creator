@@ -80,7 +80,13 @@ class LeanCanvasBox extends Component {
             title="Help"
             className="canvas-box-tut"
           >
-            ?
+            <img
+              alt="Show Tutorial"
+              title="Show Tutorial"
+              src="https://cdn-icons-png.flaticon.com/512/1828/1828940.png"
+              className="nav-button-print"
+              style={{ maxHeight: "20px" }}
+            ></img>
           </button>
         </div>
         <div className="list">
